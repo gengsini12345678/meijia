@@ -1,0 +1,21 @@
+.type2{
+    display: none;
+}
+.type2li{
+    width: 300px;
+}
+
+#goodscontainer img{
+    width: 200px;
+    height: 200px;
+}
+.goodsbox{
+    /*border: 1px solid red;*/
+    width: 200px;
+    height:auto;
+    float: left;
+    margin-right: 5px;
+}
+h3{
+    clear: both;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>确认订单</title>
+</head>
+<body>
+<h2>确认订单</h2>
+<h4>请确认您要买的商品信息</h4>
+{% for shopcart in shopcart_list %}
+<div>
+    <img style="width: 200px; height: auto" src="/{{shopcart.goods.goodsimage_set.all.first.path}}" alt="">
+    <span>|名称：{{shopcart.goods.name}}</span>
+    <span>|数量：{{shopcart.count}}</span>
+    <span>|小计金额：{{shopcart.subtotal}}</span>
+</div>
+<hr/>
+
+{% endfor %}
+<h3>提交付款</h3>
+<form action="{% url 'orders:order_done' %}" method="POST">
+    {% csrf_token %}
+    <!--
+    1. 收获地址：input :radio
+    2.购买的商品：购物车中选中的商品：shopcart_list
+    -->
+    {% for sc in  shopcart_list %}
+    <input type="hidden" name="sc" value="{{sc.id}}">
+    {% endfor %}
+
+
+
+    <p>选择收获地址：</p>
+    <!---展示用户所有的收获地址-->
+    {% for address in shopcart_list.first.user.address_set.all %}
+        {% if address.status == 1 %}
+            <input type="radio" checked name="addr_id" value="{{address.id}}">
+            {{address.recv}}-{{address.phone}}-{{address.nation}}-{{address.provice}}-{{address.city}}-{{address.country}}-{{address.street}}
+            -{{address.intro}}
+            <br/>
+        {% else %}
+
+            <input type="radio" name="addr_id" value="{{address.id}}">
+            {{address.recv}}-{{address.phone}}-{{address.nation}}-{{address.provice}}-{{address.city}}-{{address.country}}-{{address.street}}
+            -{{address.intro}}
+        {% endif %}
+    <br/>
+    {% empty %}
+    <div>当前用户没有收获地址，请<a href="{% url 'users:address_add' %}">添加一个收获地址</a></div>
+    {% endfor %}
+    <input type="submit" value="提交订单" >
+
+</form>
+</body>
+</html>

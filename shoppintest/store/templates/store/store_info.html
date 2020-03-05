@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看店铺详情</title>
+    </head>
+<body>
+
+<h2>查看店铺详情</h2>
+<table border="1" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>店铺封面</th>
+        <td><img style="width: 250px; height:auto "  src="/{{store.cover}}" alt=""></td>
+    </tr>
+    <tr>
+        <th>店铺名称</th>
+        <td>{{store.name}}</td>
+    </tr>
+    <tr>
+        <th>店铺描述</th>
+        <td>{{store.intro}}</td>
+    </tr>
+    <tr>
+        <th>店铺状态</th>
+        <td>
+            {% if store.status == 0  %}
+            正常营业
+            {% elif store.status == 1 %}
+            暂停营业
+            {% elif store.status == 2 %}
+            已经删除店铺，如果恢复店铺，请联系管理员
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>店铺操作</th>
+        <td>
+            <a href="{% url 'store:store_close' store.id %}">关闭店铺</a>
+            <a href="{% url 'store:store_delete' store.id %}">删除店铺</a>
+            <a href="{% url 'store:store_update' store.id %}">修改店铺信息</a>
+            <a href="{% url 'goods:goods_upload' store.id %}">上传商品</a>
+        </td>
+    </tr>
+</table>
+<h2>店铺中的商品</h2>
+<div>
+    {% for goods in store.goods_set.all %}
+        <p><img style="width: 200px; height:auto "  src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+        <p>商品名称：{{goods.name}}</p>
+        <p>商品单价：{{goods.price}}</p>
+        <p>商品库存：{{goods.stock}}</p>
+        <p>
+            <a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+            <a href="#">修改商品</a>
+            <a href="#">删除商品</a>
+        </p>
+    {% empty %}
+    该店铺没有任何商品
+    {% endfor %}
+</div>
+
+</body>
+</html>

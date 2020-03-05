@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电商首页</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'commen/css/style.css' %}">
+    <script src="{% static 'commen/js/lib/jquery-1.8.3.js' %}"></script>
+    <script src="{% static 'commen/js/app/index.js' %}"></script>
+</head>
+<body>
+<h2>电商首页</h2>
+<h3>{{request.user}}</h3>
+<h3><a href="{% url 'users:user_logout' %}">退出系统</a></h3>
+<h3><a href="{% url 'users:user_login' %}">用户登录</a></h3>
+<h3><a href="{% url 'users:user_register' %}">用户注册</a></h3>
+<h3><a href="{% url 'store:store_list' %}">查看自己的店铺</a></h3>
+<h3><a href="{% url 'store:store_add' %}">开设店铺</a></h3>
+<h3><a href="{% url 'shopcart:shopcart_info' %}">查看购物车</a></h3>
+<h3><a href="{% url 'users:address_add' %}">添加收货地址</a></h3>
+<h3><a href="{% url 'users:address_list' %}">查看收货地址</a></h3>
+<h3><a href="{% url 'orders:order_list' %}">查看我的订单</a></h3>
+<hr/>
+<ul class="type1">
+    {% for goodstype in goodstype_1_list %}
+    <li class="type2li"><a href="">{{goodstype.name}}</a>
+        <!--展示二级类型-->
+        <ul class="type2">
+            {% for goodstyp2 in goodstype.goodstype_set.all %}
+            <li><a href="">{{goodstyp2.name}}</a></li>
+            {% empty %}
+            <li>当前没有任何商品类型</li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% empty %}
+    <li>当前没有任何商品类型</li>
+    {% endfor %}
+    <hr/>
+    <div id="goodscontainer">
+        <h3 class="goodstitle">男装女装</h3>
+        {% for goods in goods_list_1 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+
+        </div>
+        {% endfor %}
+        <h3 class="goodstitle">鞋包配件</h3>
+        {% for goods in goods_list_2 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+        </div>
+        {% endfor %}
+
+        <h3 class="goodstitle">家电数码</h3>
+        {% for goods in goods_list_3 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+        </div>
+        {% endfor %}
+        <h3 class="goodstitle">护肤美妆</h3>
+        {% for goods in goods_list_4 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+        </div>
+        {% endfor %}
+
+        <h3 class="goodstitle">运动户外</h3>
+        {% for goods in goods_list_5 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+
+        </div>
+        {% endfor %}
+
+        <h3 class="goodstitle">美食生鲜</h3>
+        {% for goods in goods_list_6 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+        </div>
+        {% endfor %}
+
+        <h3 class="goodstitle">家居家饰</h3>
+        {% for goods in goods_list_7 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+
+        </div>
+        {% endfor %}
+
+        <h3 class="goodstitle">珠宝眼镜</h3>
+        {% for goods in goods_list_8 %}
+        <div class="goodsbox">
+            <p class="goodsimg"><img src="/{{goods.goodsimage_set.all.first.path}}" alt=""></p>
+            <p class="goodsname">{{goods.name}}</p>
+            <p class="goodsprice">{{goods.price}}</p>
+            <p><a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a class="addcart" goodsid = "{{goods.id}}">加入购物车</a>
+            </p>
+
+        </div>
+        {% endfor %}
+        <h3 class="goodstitle">热门店铺</h3>
+        {% for store in store_list %}
+        <div class="goodsbox">
+            <p class="storeimg"><img src="/{{store.cover}}" alt=""></p>
+            <p class="storename">{{store.name}}</p>
+            <p class="goodsprice">{{store.price}}</p>
+            <p><a href="{% url 'store:store_info' store.id %}">查看详情</a>
+
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</ul>
+</body>
+</html>

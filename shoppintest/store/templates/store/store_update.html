@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改店铺操作</title>
+</head>
+<body>
+<h2>修改店铺操作</h2>
+
+<form action="{% url 'store:store_update' store.id %}"
+      method="POST"
+      enctype="multipart/form-data">
+    {% csrf_token %}
+    名称：<input type="text" name="name" id="name" value="{{store.name}}"><br/>
+    门面：<input type="file" name="cover" id="cover" ><br/>
+    描述：<textarea name="intro" id="intro" rows="10" cols="30">{{store.intro}}</textarea><br/>
+    状态：<input type="radio" checked  name="status" id="0" value="0">正常营业
+    <input type="radio" name="status" id="1" value="1">暂停营业
+    <input type="radio" name="status" id="2" value="2">删除店铺
+    <br/>
+    <input type="submit" value="更新店铺"><br/>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>查看订单详情</h3>
+<div>
+    订单编号：{{order.id}}
+    <p>下单时间：{{order.order_time | date:'Y-m-d G:i:s'}}</p>
+    <p>收获地址:{{order.address}}</p>
+    <p>总计金额：{{order.total}}</p>
+
+</div>
+<hr/>
+<div style="width: 800px;">
+    {% for orderitem in order.myorderitem_set.all %}
+    <img style="width: 300px; height: auto;" src="/{{orderitem.goods_img}}">
+    <p>商品名称：{{orderitem.goods_name}}</p>
+    <p>成交价格：{{orderitem.goods_price}}</p>
+    <p>购买数量：{{orderitem.goods_count}}</p>
+    <p>小计金额：{{orderitem.goods_subtotal}}</p>
+    <hr/>
+    {% empty %}
+    <p>没有购买的商品</p>
+    {% endfor %}
+
+</div>
+
+
+</body>
+</html>
